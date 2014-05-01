@@ -4,7 +4,7 @@ To start your project from base.git
     cd path/to/folder
     git submodule update --remote --init --recursive
 
-Then to push to your own repository, create the repository (on GitHub or wherever) at git@github.com:your.url.here
+Then to push to your own repository, create the repository (on GitHub) at `git@github.com:your.url.here`
 
     git remote set-url origin git@github.com:your.url.here
     
