@@ -1,32 +1,29 @@
-/*globals define*/
+/* globals define */
 define(function(require, exports, module) {
     'use strict';
     // import dependencies
     var Engine = require('famous/core/Engine');
-    var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var ImageSurface = require('famous/surfaces/ImageSurface');
 
     // create the main context
     var mainContext = Engine.createContext();
 
-    function SomeFunction() {
-
-    }
-
     // your app here
-    var outline = new Surface({
+    var logo = new ImageSurface({
         size: [200, 200],
-        content: '<img width="200" src="' + 'src/images/famous_symbol_transparent.png' + '"/>',
-        properties: {
-            lineHeight: '200px',
-            textAlign: 'center'
+        content: './resources/famous_logo.png',
+        classes: ['backfaceVisibility']
+    });
+
+    var initialTime = Date.now();
+    var centerModifier = new Modifier({
+        origin: [0.5, 0.5],
+        transform : function(){
+            return Transform.rotateY(.002 * (Date.now() - initialTime));
         }
     });
 
-    var outlineModifier = new Modifier({
-        origin: [0.5, 0.5]
-    });
-
-    mainContext.add(outlineModifier).add(outline);
-
+    mainContext.add(centerModifier).add(logo);
 });
