@@ -18,12 +18,12 @@ define(function(require, exports, module) {
     });
 
     var initialTime = Date.now();
-    var centerModifier = new Modifier({
+    var centerSpinModifier = new Modifier({
         origin: [0.5, 0.5],
         transform : function(){
             return Transform.rotateY(.002 * (Date.now() - initialTime));
         }
     });
 
-    mainContext.add(centerModifier).add(logo);
+    mainContext.add(centerSpinModifier).add(logo);
 });
