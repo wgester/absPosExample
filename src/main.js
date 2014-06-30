@@ -9,7 +9,7 @@ define(function(require, exports, module) {
     var surfaces = [];
     for (var i = 1; i < 11; i++) {
         var surface = new Surface({
-            size = [i * 10, i * 10]
+            size: [i * 10, i * 10]
         });
         surfaces.push(surface);
     }
@@ -17,7 +17,18 @@ define(function(require, exports, module) {
     var cm = new CollectionManager();
     cm.sequenceFrom(surfaces);
 
-    window.cm = cm;
+    cm.on('change', function(data) {
+        console.log(data)
+    });
 
+    var otherSurfaces = [];
+    for (var i = 1; i < 11; i++) {
+        otherSurfaces.push(new Surface({
+            size: [i * 10, i * 10]
+        }));
+    }
+
+    window.cm = cm;
+    window.a = otherSurfaces;
 
 });
