@@ -6,6 +6,7 @@ define(function(require, exports, module) {
     var Engine = require("famous/core/Engine");
     var Surface = require("famous/core/Surface");
     var Modifier = require('famous/core/Modifier');
+    var View = require('famous/core/view');
     var ScrollContainer = require("famous/views/ScrollContainer");
     var GridLayout = require('famous/views/GridLayout');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
@@ -34,7 +35,8 @@ define(function(require, exports, module) {
             direction : scrollviewDirection,
             paginated: paginated,
             groupScroll: true,
-            speedLimit: 10
+            speedLimit: 5,
+            margin: 1000
         }
     });
 
@@ -44,9 +46,19 @@ define(function(require, exports, module) {
     scrollContainer.sequenceFrom(surfaces);
 
     for (var i = 0, surface; i < numSurfaces; i++) {
+
+        var view = new View();
+        var mod = new Modifier({
+            origin: [0.5, 0.5],
+            align: [0.5, 0.5]
+        })
+        var mod2 = new Modifier({
+            origin: [0,0],
+            align: [0,0]
+        })
         surface = new Surface({
             content: "Surface: " + i,
-            size: [undefined, 200],
+            size: [undefined, true],
             properties: {
                 background: "hsla(" + (i * 360 / 40) + ", 100%, 50%, 0.8)",
                 border: '1px solid white',
@@ -55,6 +67,7 @@ define(function(require, exports, module) {
                 fontSize : '50px'
             }
         });
+        view.add(surface)
 
         surfaces.push(surface);
     }
@@ -153,11 +166,12 @@ define(function(require, exports, module) {
     ////////////////////////////////////
 
     var stats = {
-        index : function() { return scrollview._node.index; },
-        vel : function() { return scrollview.getVelocity().toFixed(2); },
-        absPos : function() { return Math.round(scrollview.getAbsolutePosition()); },
-        spring : function() { return scrollview._springState; },
-        dir : function() { return direction }
+        // index : function() { return scrollview._node.index; },
+        // vel : function() { return scrollview.getVelocity().toFixed(2); },
+        // absPos : function() { return scrollview.getAbsolutePosition(); },
+        // spring : function() { return scrollview._springState; },
+        // dir : function() { return direction },
+        // disp : function() {return scrollview._displacement;}
     };
 
     var statSurfaces = [];
